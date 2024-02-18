@@ -34,19 +34,27 @@ object Homework:
       !(this < that)
 
     @targetName("addition")
-    infix def +(that: Rational): Rational = ???
+    infix def +(that: Rational): Rational =
+      new Rational(
+        numer * that.denom + that.numer * denom,
+        denom * that.denom
+      )
 
     @targetName("negation")
-    infix def unary_- : Rational = ???
+    infix def unary_- : Rational =
+      new Rational(-numer, denom)
 
     @targetName("substraction")
-    infix def -(that: Rational): Rational = ???
+    infix def -(that: Rational): Rational =
+      this + -that
 
     @targetName("multiplication")
-    infix def *(that: Rational): Rational = ???
+    infix def *(that: Rational): Rational =
+      new Rational(numer * that.numer, denom * that.denom)
 
     @targetName("devision")
-    infix def /(that: Rational): Rational = ???
+    infix def /(that: Rational): Rational =
+      new Rational(numer * that.denom, that.numer * denom)
 
     override def toString: String = s"${this.numer}/${this.denom}"
 
@@ -55,8 +63,12 @@ object Homework:
 
     private lazy val g = gcd(abs(x), y)
 
-    override def equals(other: Any): Boolean = ???
-
+    override def equals(other: Any): Boolean =
+      other match {
+        case that: Rational => (this.numer == that.numer) &&
+            (this.denom == that.denom)
+        case _ => false
+      }
   end Rational
 
 end Homework
