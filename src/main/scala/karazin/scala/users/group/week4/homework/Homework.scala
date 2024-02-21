@@ -57,6 +57,7 @@ object Homework:
         case Empty => true
         case _ => false
       }
+    override def hashCode: Int = 0
 
   end Empty
     
@@ -102,7 +103,17 @@ object Homework:
         case NonEmpty(e, l, r) => elem == e && left == l && right == r
         case _ => false
       }
-
+    override def hashCode: Int = {
+    val arr = productArity
+    var code = arr
+    var i = 0
+    while (i < arr) {
+      val elem = productElement(i)
+      code = code * 41 + (if (elem == null) 0 else elem.hashCode())
+      i += 1
+    }
+    code
+  }
   end NonEmpty
 
 end Homework
