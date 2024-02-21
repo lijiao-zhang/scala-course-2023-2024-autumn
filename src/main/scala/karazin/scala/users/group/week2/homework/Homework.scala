@@ -80,7 +80,10 @@ object Homework:
         case _ => false
       }
     }
-
+    override def hashCode: Int = {
+      // Combine the hash codes of numerator and denominator
+      numer.hashCode() ^ denom.hashCode()
+    }
 
 
   end Rational
