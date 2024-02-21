@@ -48,6 +48,7 @@ object Homework:
         case Zero => true
         case _ => false
       }
+   override def hashCode(): Int = 0
 
   class Succ(n: Nat) extends Nat:
     def isZero: Boolean = false
@@ -67,3 +68,4 @@ object Homework:
         case s: Succ => n == s.predecessor
         case _ => false
       }
+    override def hashCode(): Int = 0
