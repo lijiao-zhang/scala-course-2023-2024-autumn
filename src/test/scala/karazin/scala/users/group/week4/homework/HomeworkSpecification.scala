@@ -76,32 +76,48 @@ object NonEmptySpecification extends Properties("NonEmpty"):
   }
 
   property("include") = forAll { (nonEmpty: NonEmpty, element: Int) ⇒
-    false
+    (nonEmpty include element).contains(element)
   }
+
+
 
   property("contains") = forAll { (nonEmpty: NonEmpty, element: Int) ⇒
-    false
+    nonEmpty.contains(element) == (nonEmpty.elem == element || nonEmpty.left.contains(element) || nonEmpty.right.contains(element))
   }
+
+
 
   property("remove") = forAll { (nonEmpty: NonEmpty, element: Int) ⇒
-    false
+    !(nonEmpty.remove(element).contains(element))
   }
+
+
 
   property("union") = forAll { (nonEmpty: NonEmpty, set: IntSet) ⇒
-    false
+    (nonEmpty ∪ set).contains(nonEmpty.elem) && (nonEmpty ∪ set).containsAll(set)
   }
+
+
 
   property("intersection") = forAll { (nonEmpty: NonEmpty, set: IntSet) ⇒
-    false
+    (nonEmpty ∩ set).containsAll(nonEmpty) && (nonEmpty ∩ set).containsAll(set)
   }
+
+
 
   property("complement") = forAll { (nonEmpty: NonEmpty, set: IntSet) ⇒
-    false
+    val complement = nonEmpty ∖ set
+    complement.containsAll(nonEmpty) && !(complement.containsAny(set))
   }
 
+
+
   property("disjunctive") = forAll { (nonEmpty: NonEmpty, set: IntSet) ⇒
-    false
+    val disjunctive = nonEmpty ∆ set
+    disjunctive.containsAll(nonEmpty) && disjunctive.containsAll(set)
   }
+
+
 
 end NonEmptySpecification
 
